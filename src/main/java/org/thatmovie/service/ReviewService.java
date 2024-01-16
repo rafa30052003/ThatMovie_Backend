@@ -15,20 +15,39 @@ public class ReviewService {
     @Autowired
     ReviewRepository reviewRepo;
 
+    /**
+     * Obtiene todas las reseñas
+     *
+     * @return Lista de todas las reseñas
+     */
     public List<Review> getAllReviews() {
         List<Review> reviews = reviewRepo.findAll();
         return reviews;
     }
 
+    /**
+     * Obtiene una reseña por su ID
+     *
+     * @param id ID de la reseña a buscar
+     * @return La reseña encontrada
+     * @throws RecordNotFoundException si no se encuentra la reseña con el ID especificado
+     */
     public Review getReviewById(int id) {
         Optional<Review> review = reviewRepo.findById(id);
         if(review.isPresent()){
             return review.get();
         }else{
-            throw new RecordNotFoundException("No review found with id : " + id);
+            throw new RecordNotFoundException("No review found with ID: " + id);
         }
     }
 
+    /**
+     * Crea o actualiza una reseña
+     *
+     * @param review La reseña a crear o actualizar
+     * @return La reseña creada o actualizada
+     * @throws RecordNotFoundException si no se encuentra la reseña con el ID especificado al actualizar
+     */
     public Review createOrUpdateReview(Review review) {
         Review end;
         if(review.getId() != -1){
@@ -39,7 +58,7 @@ public class ReviewService {
                 existing.setRating(review.getRating());
                 end = reviewRepo.save(existing);
             }else{
-                throw new RecordNotFoundException("No review found with id : " + review.getId());
+                throw new RecordNotFoundException("No review found with ID: " + review.getId());
             }
         }else{
             end=reviewRepo.save(review);
@@ -47,12 +66,18 @@ public class ReviewService {
         return end;
     }
 
+    /**
+     * Elimina una reseña por su ID
+     *
+     * @param id ID de la reseña a eliminar
+     * @throws RecordNotFoundException si no se encuentra la reseña con el ID especificado
+     */
     public void deleteReview(int id) {
         Optional<Review> result = reviewRepo.findById(id);
         if(result.isPresent()){
             reviewRepo.deleteById(id);
         }else{
-            throw new RecordNotFoundException("No review found with id : " + id);
+            throw new RecordNotFoundException("No review found with ID: " + id);
         }
     }
 }
