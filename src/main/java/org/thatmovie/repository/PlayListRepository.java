@@ -1,6 +1,6 @@
-package org.example.repository;
+package org.thatmovie.repository;
 
-import org.example.model.PlayList;
+import org.thatmovie.model.PlayList;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface PlayListRepository extends JpaRepository<PlayList, Integer> {

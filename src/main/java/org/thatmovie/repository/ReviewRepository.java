@@ -1,6 +1,6 @@
-package org.example.repository;
+package org.thatmovie.repository;
 
-import org.example.model.Review;
+import org.thatmovie.model.Review;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface ReviewRepository extends JpaRepository<Review, Integer> {
