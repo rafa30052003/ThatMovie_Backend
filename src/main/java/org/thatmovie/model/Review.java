@@ -17,20 +17,20 @@ public class Review {
     private LocalDate created_at;
     @ManyToOne
     @JoinColumn(name = "user_id")
-    private User user;
+    private Member member;
     @Column(name = "movie_id")
     private int movie;
 
     public Review() {
-        this(0, "", 0.0, LocalDate.now(), new User(), 0);
+        this(0, "", 0.0, LocalDate.now(), new Member(), 0);
     }
 
-    public Review(int id, String content, double rating, LocalDate date, User user, int movie) {
+    public Review(int id, String content, double rating, LocalDate date, Member user, int movie) {
         this.id = id;
         this.content = content;
         this.rating = rating;
         this.created_at = date;
-        this.user = user;
+        this.member = user;
         this.movie = movie;
     }
 
@@ -66,12 +66,12 @@ public class Review {
         this.created_at = date;
     }
 
-    public User getUser() {
-        return user;
+    public Member getMember() {
+        return member;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setMember(Member user) {
+        this.member = user;
     }
 
     public int getMovie() {
@@ -89,7 +89,7 @@ public class Review {
                 ", content='" + content + '\'' +
                 ", rating=" + rating +
                 ", date=" + created_at +
-                ", user=" + user +
+                ", user=" + member +
                 ", movie=" + movie +
                 '}';
     }

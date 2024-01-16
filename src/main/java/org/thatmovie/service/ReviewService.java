@@ -4,7 +4,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.thatmovie.exception.RecordNotFoundException;
 import org.thatmovie.model.Review;
-import org.thatmovie.model.User;
 import org.thatmovie.repository.ReviewRepository;
 
 import java.util.List;
@@ -50,7 +49,7 @@ public class ReviewService {
      */
     public Review createOrUpdateReview(Review review) {
         Review end;
-        if(review.getId() != -1){
+        if(review.getId() > 0){
             Optional<Review> result = reviewRepo.findById(review.getId());
             if(result.isPresent()){
                 Review existing = result.get();

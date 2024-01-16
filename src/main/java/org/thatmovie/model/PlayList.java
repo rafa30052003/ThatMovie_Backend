@@ -18,19 +18,19 @@ public class PlayList {
     private LocalDate created_at;
     @ManyToOne
     @JoinColumn(name = "user_id")
-    private  User user;
+    private Member member;
 
 
     public PlayList() {
     this(-1, "name", false, LocalDate.now(), null);
     }
 
-    public PlayList(int id, String name, Boolean like, LocalDate created_at, User user_id) {
+    public PlayList(int id, String name, Boolean like, LocalDate created_at, Member user_id) {
         this.id = id;
         this.name = name;
         this.like = like;
         this.created_at = created_at;
-        this.user = user_id;
+        this.member = user_id;
     }
 
 
@@ -66,12 +66,12 @@ public class PlayList {
         this.created_at = created_at;
     }
 
-    public User getUser() {
-        return user;
+    public Member getUser() {
+        return member;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setUser(Member user) {
+        this.member = user;
     }
 
     @Override
@@ -81,7 +81,7 @@ public class PlayList {
                 ", name='" + name + '\'' +
                 ", like='" + like + '\'' +
                 ", created_at=" + created_at +
-                ", user_id=" + user +
+                ", user_id=" + member +
                 '}';
     }
 }

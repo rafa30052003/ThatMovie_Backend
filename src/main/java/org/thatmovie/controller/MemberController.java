@@ -3,17 +3,17 @@ package org.thatmovie.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.thatmovie.model.User;
-import org.thatmovie.service.UserService;
+import org.thatmovie.model.Member;
+import org.thatmovie.service.MemberService;
 
 import java.util.List;
 
 @RestController
-@RequestMapping("/user")
-public class UserController {
+@RequestMapping("/member")
+public class MemberController {
 
     @Autowired
-    UserService userService;
+    MemberService memberService;
 
     /**
      * Obtiene todos los usuarios
@@ -21,8 +21,8 @@ public class UserController {
      * @return Lista de usuarios
      */
     @GetMapping
-    public ResponseEntity<List<User>> getAllUsers(){
-        List<User> list = userService.getAllUsers();
+    public ResponseEntity<List<Member>> getAllMembers(){
+        List<Member> list = memberService.getAllUsers();
         return ResponseEntity.ok(list);
     }
 
@@ -33,8 +33,8 @@ public class UserController {
      * @return El usuario con el id dado
      */
     @GetMapping("/{id}")
-    public ResponseEntity<User> getUserById(@PathVariable("id") int id){
-        User user = userService.getUserById(id);
+    public ResponseEntity<Member> getUserById(@PathVariable("id") int id){
+        Member user = memberService.getUserById(id);
         return ResponseEntity.ok(user);
     }
 
@@ -45,20 +45,20 @@ public class UserController {
      * @return El usuario con el nombre de usuario dado
      */
     @GetMapping("/{username}")
-    public ResponseEntity<User> getUserByUsername(@PathVariable("username") String username){
-        User user = userService.getUserByUsername(username);
+    public ResponseEntity<Member> getUserByUsername(@PathVariable("username") String username){
+        Member user = memberService.getUserByUsername(username);
         return ResponseEntity.ok(user);
     }
 
     /**
      * Crea o actualiza un usuario
      *
-     * @param user El usuario a crear o actualizar
+     * @param member El usuario a crear o actualizar
      * @return El usuario creado o actualizado
      */
     @PostMapping
-    public ResponseEntity<User> createOrUpdateUser(@RequestBody User user){
-        User end = userService.createOrUpdateUser(user);
+    public ResponseEntity<Member> createOrUpdateMember(@RequestBody Member member){
+        Member end = memberService.createOrUpdateUser(member);
         return ResponseEntity.ok(end);
     }
 
@@ -69,6 +69,6 @@ public class UserController {
      */
     @DeleteMapping("/{id}")
     public void deleteUser(@PathVariable("id") int id){
-        userService.deleteUser(id);
+        memberService.deleteUser(id);
     }
 }

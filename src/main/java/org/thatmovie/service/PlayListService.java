@@ -47,7 +47,7 @@ public class PlayListService {
      */
     public PlayList createPlayList(PlayList playList) {
         PlayList end;
-        if (playList.getId() != -1) {// Actualizar
+        if (playList.getId() > 0) {// Actualizar
             Optional<PlayList> result = playListRepo.findById(playList.getId());
             if (result.isPresent()) {
                 PlayList fromDB = result.get();
