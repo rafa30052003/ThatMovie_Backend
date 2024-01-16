@@ -1,4 +1,4 @@
-package org.example.doc;
+package org.thatmovie.doc;
 
 public class OpenApiConfig {
 }

@@ -1,4 +1,4 @@
-package org.example.controller;
+package org.thatmovie.controller;
 
 public class ReviewController {
 }
