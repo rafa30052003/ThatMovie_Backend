@@ -1,4 +1,4 @@
-package org.example.model;
+package org.thatmovie.model;
 
 import jakarta.persistence.*;
 
