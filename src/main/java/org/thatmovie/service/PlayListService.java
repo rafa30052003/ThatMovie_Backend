@@ -1,9 +1,11 @@
-package org.example.service;
+package org.thatmovie.service;
 
-import org.example.model.PlayList;
-import org.example.repository.PlayListRepository;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.thatmovie.exception.RecordNotFoundException;
+import org.thatmovie.model.PlayList;
+import org.thatmovie.repository.PlayListRepository;
 
 import java.util.List;
 import java.util.Optional;
