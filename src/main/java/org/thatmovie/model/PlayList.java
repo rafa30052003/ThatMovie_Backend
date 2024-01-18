@@ -5,14 +5,15 @@ import jakarta.persistence.*;
 import java.time.LocalDate;
 
 @Entity
-@Table(name = "list")
+@Table(name = "playlist")
 public class PlayList {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id", columnDefinition = "SERIAL")
     private int id;
     @Column(name = "name", length = 256, nullable = false)
     private String name;
-    @Column(name = "like")
+    @Column(name = "liked")
     private Boolean like;
     @Column(name = "created_at")
     private LocalDate created_at;
@@ -23,6 +24,13 @@ public class PlayList {
 
     public PlayList() {
     this(-1, "name", false, LocalDate.now(), null);
+    }
+
+    public PlayList(String name, Boolean like, LocalDate created_at, Member member) {
+        this.name = name;
+        this.like = like;
+        this.created_at = created_at;
+        this.member = member;
     }
 
     public PlayList(int id, String name, Boolean like, LocalDate created_at, Member user_id) {
