@@ -16,8 +16,8 @@ public class MoviesApiService {
         this.moviesApiRepository = moviesApiRepository;
     }
 
-    public void setApiKey(String apiKey) {
-        this.moviesApiRepository.setAuthToken(apiKey);
+    public JsonArray getMovieListName(String movieName) throws IOException {
+        return moviesApiRepository.getMoviesListName(movieName);
     }
 
     public JsonArray getMovieList(int page) throws IOException {

@@ -6,9 +6,10 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Repository;
 
 import java.io.IOException;
-
+@Repository
 public class MoviesApiRepository {
     private static final OkHttpClient client = new OkHttpClient();
     private static final String apiKey = "b3edb8667c4b58c6c568c1046533ee7c";

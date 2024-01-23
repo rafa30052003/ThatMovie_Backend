@@ -26,4 +26,9 @@ public class MovieApiController {
 
     }
 
+    @GetMapping("/search")
+    public JsonArray getMovieListName(@RequestParam("movieName") String movieName) throws IOException {
+        return moviesApiService.getMovieListName(movieName);
+    }
+
 }
