@@ -1,8 +1,11 @@
 package org.thatmovie.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.thatmovie.model.Movie;
+import org.thatmovie.model.DTO.MovieDTO;
 import org.thatmovie.model.PlayList;
 import org.thatmovie.service.PlayListService;
 
@@ -13,6 +16,7 @@ import java.util.List;
 public class PlayListController {
     @Autowired
     PlayListService playListService;
+
 
     /**
      * Obtiene todas las listas de reproducción
@@ -58,4 +62,58 @@ public class PlayListController {
     public void deletePlayList(@PathVariable("id") int id){
         playListService.deletePlayList(id);
     }
+
+
+
+
+   /**
+     +     * Agrega una película a una lista de reproducción.
+     +     *
+     +     * @param  id    el ID de la lista de reproducción
+     +     * @param  movie la película que se va a añadir
+     +     * @return       una respuesta que indica el éxito o fracaso de la operación
+     +     */
+    @PostMapping("/playlist/{id}/addMovie")
+    public ResponseEntity<?> addMovieToPlayList(@PathVariable int id, @RequestBody MovieDTO movie) {
+        try {
+            PlayList playList = playListService.getPlayListById(id);
+            if (playList == null) {
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Playlist not found");
+            }
+
+            Movie movieToBeStore = new Movie();
+            movieToBeStore.setAdult(movie.isAdult());
+            movieToBeStore.setBackdrop_path(movie.getBackdrop_path());
+            movieToBeStore.setGenre_ids(movie.getGenre_ids());
+            movieToBeStore.setGenre_names(movie.getGenre_names());
+            movieToBeStore.setId(movie.getId());
+            movieToBeStore.setOriginal_language(movie.getOriginal_language());
+            movieToBeStore.setOriginal_title(movie.getOriginal_title());
+            movieToBeStore.setOverview(movie.getOverview());
+            movieToBeStore.setPopularity(movie.getPopularity());
+            movieToBeStore.setPoster_path(movie.getPoster_path());
+            movieToBeStore.setRelease_date(movie.getRelease_date());
+            movieToBeStore.setTitle(movie.getTitle());
+            movieToBeStore.setVideo(movie.isVideo());
+
+
+
+            //settear todos los campos de moviedto -> movie
+
+
+            movieToBeStore.addToPlayList(playList);
+            playList.addMovie(movieToBeStore);
+            playListService.createPlayList(playList);
+
+
+            // Devolver una respuesta exitosa
+            return ResponseEntity.ok("Movie added to playlist successfully");
+        } catch (Exception e) {
+            // Manejar otros errores, por ejemplo, si hay un problema al procesar la película
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error adding movie to playlist: " + e.getMessage());
+        }
+    }
+
+
+
 }

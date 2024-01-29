@@ -1,6 +1,5 @@
 package org.thatmovie.service;
 
-import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.thatmovie.exception.RecordNotFoundException;
@@ -14,6 +13,7 @@ import java.util.Optional;
 public class PlayListService {
     @Autowired
     PlayListRepository playListRepo;
+
 
     /**
      * Obtiene todas las listas de reproducción
@@ -77,4 +77,9 @@ public class PlayListService {
             throw new RecordNotFoundException("No se encontró una lista de reproducción con el id: " + id);
         }
     }
+
+
+
+
+
 }

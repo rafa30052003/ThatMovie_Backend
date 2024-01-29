@@ -1,4 +1,4 @@
-package org.thatmovie.model;
+package org.thatmovie.model.DTO;
 
 import java.util.List;
 
@@ -14,9 +14,6 @@ public class ResponseMovieDTO {
         this.total_results = total_results;
         this.total_pages = total_pages;
         this.results = results;
-    }
-
-    public ResponseMovieDTO() {
     }
 
     public int getPage() {

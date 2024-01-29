@@ -1,30 +1,42 @@
-package org.thatmovie.model;
+package org.thatmovie.model.DTO;
+
+import jakarta.persistence.*;
+import org.thatmovie.model.PlayList;
+
+import java.util.List;
 
 public class MovieDTO {
     private boolean adult;
     private String backdrop_path;
-    private int id;
-    private String original_language;
-    private String original_title;
-    private String overview;
-    private double popularity;
-    private String poster_path;
-    private String release_date;
-    private String title;
-    private boolean video;
-    private double vote_average;
-    private int vote_count;
-
-    private int[] genre_ids;
+    private Integer[] genre_ids;
     private String[] genre_names;
 
-    public MovieDTO() {
+    private Integer id;
 
-    }
+    private String original_language;
 
-    public MovieDTO(boolean adult, String backdrop_path, int id, String original_language, String original_title, String overview, double popularity, String poster_path, String release_date, String title, boolean video, double vote_average, int vote_count, int[] genre_ids, String[] genre_names) {
+    private String original_title;
+
+    private String overview;
+
+    private Double popularity;
+
+    private String poster_path;
+
+    private String release_date;
+
+    private String title;
+
+    private boolean video;
+
+   // private CreditsDTO credits;
+
+
+    public MovieDTO(boolean adult, String backdrop_path, Integer[] genre_ids, String[] genre_names, Integer id, String original_language, String original_title, String overview, double popularity, String poster_path, String release_date, String title, boolean video) {
         this.adult = adult;
         this.backdrop_path = backdrop_path;
+        this.genre_ids = genre_ids;
+        this.genre_names = genre_names;
         this.id = id;
         this.original_language = original_language;
         this.original_title = original_title;
@@ -34,10 +46,11 @@ public class MovieDTO {
         this.release_date = release_date;
         this.title = title;
         this.video = video;
-        this.vote_average = vote_average;
-        this.vote_count = vote_count;
-        this.genre_ids = genre_ids;
-        this.genre_names = genre_names;
+
+        ///this.credits = credits;
+    }
+
+    public MovieDTO() {
     }
 
     public boolean isAdult() {
@@ -56,11 +69,27 @@ public class MovieDTO {
         this.backdrop_path = backdrop_path;
     }
 
-    public int getId() {
+    public Integer[] getGenre_ids() {
+        return genre_ids;
+    }
+
+    public void setGenre_ids(Integer[] genre_ids) {
+        this.genre_ids = genre_ids;
+    }
+
+    public String[] getGenre_names() {
+        return genre_names;
+    }
+
+    public void setGenre_names(String[] genre_names) {
+        this.genre_names = genre_names;
+    }
+
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -128,35 +157,15 @@ public class MovieDTO {
         this.video = video;
     }
 
-    public double getVote_average() {
-        return vote_average;
+
+/*
+    public CreditsDTO getCredits() {
+        return credits;
     }
 
-    public void setVote_average(double vote_average) {
-        this.vote_average = vote_average;
+    public void setCredits(CreditsDTO credits) {
+        this.credits = credits;
     }
+*/
 
-    public int getVote_count() {
-        return vote_count;
-    }
-
-    public void setVote_count(int vote_count) {
-        this.vote_count = vote_count;
-    }
-
-    public int[] getGenre_ids() {
-        return genre_ids;
-    }
-
-    public void setGenre_ids(int[] genre_ids) {
-        this.genre_ids = genre_ids;
-    }
-
-    public String[] getGenre_names() {
-        return genre_names;
-    }
-
-    public void setGenre_names(String[] genre_names) {
-        this.genre_names = genre_names;
-    }
 }
