@@ -74,19 +74,18 @@ public class PlayListController {
      +     * @return       una respuesta que indica el éxito o fracaso de la operación
      +     */
     @PostMapping("/playlist/{id}/addMovie")
-    public ResponseEntity<?> addMovieToPlayList(@PathVariable int id, @RequestBody MovieDTO movie) {
+    public ResponseEntity<?> addMovieToPlayList(@PathVariable("id") int id, @RequestBody MovieDTO movie) {
         try {
             PlayList playList = playListService.getPlayListById(id);
             if (playList == null) {
                 return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Playlist not found");
             }
-
             Movie movieToBeStore = new Movie();
             movieToBeStore.setAdult(movie.isAdult());
             movieToBeStore.setBackdrop_path(movie.getBackdrop_path());
             movieToBeStore.setGenre_ids(movie.getGenre_ids());
             movieToBeStore.setGenre_names(movie.getGenre_names());
-            movieToBeStore.setId(movie.getId());
+            //movieToBeStore.setId(movie.getId());
             movieToBeStore.setOriginal_language(movie.getOriginal_language());
             movieToBeStore.setOriginal_title(movie.getOriginal_title());
             movieToBeStore.setOverview(movie.getOverview());
@@ -95,21 +94,11 @@ public class PlayListController {
             movieToBeStore.setRelease_date(movie.getRelease_date());
             movieToBeStore.setTitle(movie.getTitle());
             movieToBeStore.setVideo(movie.isVideo());
-
-
-
-            //settear todos los campos de moviedto -> movie
-
-
             movieToBeStore.addToPlayList(playList);
             playList.addMovie(movieToBeStore);
             playListService.createPlayList(playList);
-
-
-            // Devolver una respuesta exitosa
             return ResponseEntity.ok("Movie added to playlist successfully");
         } catch (Exception e) {
-            // Manejar otros errores, por ejemplo, si hay un problema al procesar la película
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error adding movie to playlist: " + e.getMessage());
         }
     }
