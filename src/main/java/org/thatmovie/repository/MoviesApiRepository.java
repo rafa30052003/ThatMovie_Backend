@@ -6,13 +6,10 @@ import okhttp3.HttpUrl;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Repository;
-import org.thatmovie.model.MovieDTO;
-import org.thatmovie.model.ResponseMovieDTO;
+import org.thatmovie.model.DTO.ResponseMovieDTO;
 
 import java.io.IOException;
-import java.util.List;
 
 @Repository
 public class MoviesApiRepository {
@@ -91,6 +88,7 @@ public class MoviesApiRepository {
         urlBuilder.addQueryParameter("api_key", apiKey);
         urlBuilder.addQueryParameter("query", movieName);
 
+
         Request request = new Request.Builder()
                 .url(urlBuilder.build())
                 .get()
@@ -106,6 +104,17 @@ public class MoviesApiRepository {
     }
 
 
+
+    public static void main(String[] args) {
+        try {
+            ResponseMovieDTO moviesList = MoviesApiRepository.getMoviesListName( "Pulp Fiction");
+            Gson gson = new GsonBuilder().setPrettyPrinting().create();
+            String json = gson.toJson(moviesList);
+            System.out.println(json);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
 
 
