@@ -1,5 +1,6 @@
 package org.thatmovie.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
@@ -27,6 +28,7 @@ public class PlayList {
             name = "list_movie",
             joinColumns = @JoinColumn(name = "list_id"),
             inverseJoinColumns = @JoinColumn(name = "movie_id"))
+    @JsonIgnore
     private List<Movie> movies;
 
 
