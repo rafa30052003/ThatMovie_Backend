@@ -102,19 +102,34 @@ public class MoviesApiRepository {
 
         return result;
     }
+    /**
+     * Obtiene la película popular desde la API.
+     *
+     * @return la respuesta de la película popular
+     */
+    public static ResponseMovieDTO getPopularMovie() throws IOException {
 
+        String endpoint = baseUrl + "/movie/popular";
 
+        HttpUrl.Builder urlBuilder = HttpUrl.parse(endpoint).newBuilder();
+        urlBuilder.addQueryParameter("api_key", apiKey);
 
-    public static void main(String[] args) {
-        try {
-            ResponseMovieDTO moviesList = MoviesApiRepository.getMoviesListName( "Pulp Fiction");
-            Gson gson = new GsonBuilder().setPrettyPrinting().create();
-            String json = gson.toJson(moviesList);
-            System.out.println(json);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        Request request = new Request.Builder()
+                .url(urlBuilder.build())
+                .get()
+                .addHeader("Authorization", "Bearer " + authToken)
+                .build();
+        Response response = client.newCall(request).execute();
+        String responseBody = response.body().string();
+        ResponseMovieDTO result = new Gson().fromJson(responseBody, new TypeToken<ResponseMovieDTO>() {}.getType());
+
+        return result;
     }
+
+
+
+
+
 
 
 
