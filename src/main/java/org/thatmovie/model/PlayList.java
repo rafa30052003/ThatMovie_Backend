@@ -28,7 +28,6 @@ public class PlayList {
             name = "list_movie",
             joinColumns = @JoinColumn(name = "list_id"),
             inverseJoinColumns = @JoinColumn(name = "movie_id"))
-    @JsonIgnore
     private List<Movie> movies;
 
 
