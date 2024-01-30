@@ -7,6 +7,7 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 import org.springframework.stereotype.Repository;
+import org.thatmovie.model.DTO.MovieDTO;
 import org.thatmovie.model.DTO.ResponseMovieDTO;
 
 import java.io.IOException;
@@ -16,31 +17,60 @@ public class MoviesApiRepository {
     private static final OkHttpClient client = new OkHttpClient();
     private static final String apiKey = "b3edb8667c4b58c6c568c1046533ee7c";
     private static final String baseUrl = "https://api.themoviedb.org/3";
-    //private static OkHttpClient client;
-   // private static String apiKey;
-   //private static String baseUrl;
+
     private static String authToken;
-/*
-    @Value("${api.client}")
-    public void setClient(String client) {
-        MoviesApiRepository.client = new OkHttpClient.Builder().build();
-    }
 
-    @Value("${api.key}")
-    public void setApiKey(String key) {
-        MoviesApiRepository.apiKey = key;
-    }
 
-    @Value("${api.url}")
-    public void setBaseUrl(String url) {
-        MoviesApiRepository.baseUrl = url;
-    }
 
- */
+
+
 
     public static void setAuthToken(String token) {
         authToken = token;
     }
+
+
+
+
+
+
+
+
+
+    /**
+     * Obtiene una película por su ID.
+     *
+     * @param  id    el ID de la película a obtener
+     * @return      el objeto DTO de película que representa la película obtenida
+     */
+
+
+    public MovieDTO getMovieById(int id) throws IOException {
+
+        String endpoint = baseUrl + "/movie/" + id;  //ojooooo
+        HttpUrl.Builder urlBuilder = HttpUrl.parse(endpoint).newBuilder();
+        urlBuilder.addQueryParameter("api_key", apiKey);
+        urlBuilder.addQueryParameter("append_to_response", "credits");
+
+        Request request = new Request.Builder()
+                .url(urlBuilder.build())
+                .get()
+                .addHeader("Access-Control-Allow-Origin", "*")
+                .build();
+
+        Response response = client.newCall(request).execute();
+        String responseBody = response.body().string();
+        MovieDTO result = new Gson().fromJson(responseBody, new TypeToken<MovieDTO>() {}.getType());
+
+        return result;
+    }
+
+
+
+
+
+
+
 
     /**
      * Este método obtiene una lista de películas de la API basada en el número de página especificado.
@@ -56,6 +86,7 @@ public class MoviesApiRepository {
         HttpUrl.Builder urlBuilder = HttpUrl.parse(endpoint).newBuilder();
         urlBuilder.addQueryParameter("api_key", apiKey);
         urlBuilder.addQueryParameter("page", String.valueOf(page));
+
         Request request = new Request.Builder()
                 .url(urlBuilder.build())
                 .get()
@@ -69,6 +100,10 @@ public class MoviesApiRepository {
 
         return result;
     }
+
+
+
+
 
 
     /**
@@ -89,6 +124,7 @@ public class MoviesApiRepository {
         urlBuilder.addQueryParameter("query", movieName);
 
 
+
         Request request = new Request.Builder()
                 .url(urlBuilder.build())
                 .get()
@@ -102,6 +138,12 @@ public class MoviesApiRepository {
 
         return result;
     }
+
+
+
+
+
+
     /**
      * Obtiene la película popular desde la API.
      *
@@ -125,6 +167,8 @@ public class MoviesApiRepository {
 
         return result;
     }
+
+
 
 
 

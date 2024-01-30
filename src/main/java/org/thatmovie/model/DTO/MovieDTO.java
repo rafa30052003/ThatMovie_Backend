@@ -29,10 +29,10 @@ public class MovieDTO {
 
     private boolean video;
 
-   // private CreditsDTO credits;
+    private CreditsDTO credits;
 
 
-    public MovieDTO(boolean adult, String backdrop_path, Integer[] genre_ids, String[] genre_names, Integer id, String original_language, String original_title, String overview, double popularity, String poster_path, String release_date, String title, boolean video) {
+    public MovieDTO(boolean adult, String backdrop_path, Integer[] genre_ids, String[] genre_names, Integer id, String original_language, String original_title, String overview, double popularity, String poster_path, String release_date, String title, boolean video, CreditsDTO credits) {
         this.adult = adult;
         this.backdrop_path = backdrop_path;
         this.genre_ids = genre_ids;
@@ -47,7 +47,7 @@ public class MovieDTO {
         this.title = title;
         this.video = video;
 
-        ///this.credits = credits;
+        this.credits = credits;
     }
 
     public MovieDTO() {
@@ -158,7 +158,7 @@ public class MovieDTO {
     }
 
 
-/*
+
     public CreditsDTO getCredits() {
         return credits;
     }
@@ -166,6 +166,6 @@ public class MovieDTO {
     public void setCredits(CreditsDTO credits) {
         this.credits = credits;
     }
-*/
+
 
 }

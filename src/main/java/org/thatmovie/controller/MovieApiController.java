@@ -5,11 +5,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import org.thatmovie.model.DTO.MovieDTO;
 import org.thatmovie.model.DTO.ResponseMovieDTO;
+import org.thatmovie.model.PlayList;
 import org.thatmovie.service.MoviesApiService;
 
 import java.io.IOException;
@@ -60,6 +59,17 @@ public class MovieApiController {
     @GetMapping("/popular")
     public ResponseMovieDTO getPopularList() throws IOException {
         return moviesApiService.getPopularList();
+    }
+    /**
+     * Obtiene una película por su ID.
+     *
+     * @param  id   el ID de la película a obtener
+     * @return      el ResponseEntity que contiene el MovieDTO
+     */
+    @GetMapping("/{id}")
+    public ResponseEntity<MovieDTO> getMovieById(@PathVariable("id") int id){
+        MovieDTO movie = moviesApiService.getMovieById(id);
+        return ResponseEntity.ok(movie);
     }
 
 }
