@@ -52,5 +52,14 @@ public class MovieApiController {
     public ResponseMovieDTO getMovieListName(@RequestParam("movieName") String movieName) throws IOException {
         return moviesApiService.getMovieListName(movieName);
     }
+    /**
+     +     * Obtiene la lista de películas populares desde la API.
+     +     *
+     +     * @return         	la lista de películas populares
+     +     */
+    @GetMapping("/popular")
+    public ResponseMovieDTO getPopularList() throws IOException {
+        return moviesApiService.getPopularList();
+    }
 
 }

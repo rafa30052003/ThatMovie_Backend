@@ -41,4 +41,14 @@ public class MoviesApiService {
     public ResponseMovieDTO getMovieList(int page) throws IOException {
         return moviesApiRepository.getMoviesList(page);
     }
+
+    
+    /**
+     * Obtiene la lista de películas populares desde el repositorio de la API de películas.
+     *
+     * @return la lista de películas populares
+     */
+    public ResponseMovieDTO getPopularList() throws IOException {
+        return moviesApiRepository.getPopularMovie();
+    }
 }
