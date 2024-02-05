@@ -68,6 +68,13 @@ public class MoviesApiService {
         return moviesApiRepository.getPopularMovie();
     }
 
+    public ResponseMovieDTO getUpcomingMovies () throws IOException {
+        return moviesApiRepository.getUpcomingMovies();
+    }
+
+    public ResponseMovieDTO getNowPlayingMovies () throws IOException {
+        return moviesApiRepository.getNowPlayingMovies();
+    }
 
 
 

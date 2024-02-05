@@ -72,4 +72,14 @@ public class MovieApiController {
         return ResponseEntity.ok(movie);
     }
 
+    @GetMapping("/upcoming")
+    public ResponseMovieDTO getUpcomingMovies() throws IOException {
+        return moviesApiService.getUpcomingMovies();
+    }
+
+    @GetMapping("/now_playing")
+    public ResponseMovieDTO getNowPlayingMovies() throws IOException {
+        return moviesApiService.getNowPlayingMovies();
+    }
+
 }

@@ -168,14 +168,47 @@ public class MoviesApiRepository {
         return result;
     }
 
+    /**
+     * Obtiene la película popular desde la API.
+     *
+     * @return la respuesta de la película popular
+     */
+    public static ResponseMovieDTO getUpcomingMovies() throws IOException {
 
+        String endpoint = baseUrl + "/movie/upcoming";
 
+        HttpUrl.Builder urlBuilder = HttpUrl.parse(endpoint).newBuilder();
+        urlBuilder.addQueryParameter("api_key", apiKey);
 
+        Request request = new Request.Builder()
+                .url(urlBuilder.build())
+                .get()
+                .addHeader("Authorization", "Bearer " + authToken)
+                .build();
+        Response response = client.newCall(request).execute();
+        String responseBody = response.body().string();
+        ResponseMovieDTO result = new Gson().fromJson(responseBody, new TypeToken<ResponseMovieDTO>() {}.getType());
 
+        return result;
+    }
 
+    public static ResponseMovieDTO getNowPlayingMovies() throws IOException {
+        String endpoint = baseUrl + "/movie/now_playing";
 
+        HttpUrl.Builder urlBuilder = HttpUrl.parse(endpoint).newBuilder();
+        urlBuilder.addQueryParameter("api_key", apiKey);
 
+        Request request = new Request.Builder()
+                .url(urlBuilder.build())
+                .get()
+                .addHeader("Authorization", "Bearer " + authToken)
+                .build();
+        Response response = client.newCall(request).execute();
+        String responseBody = response.body().string();
+        ResponseMovieDTO result = new Gson().fromJson(responseBody, new TypeToken<ResponseMovieDTO>() {}.getType());
 
+        return result;
+    }
 
 }
 
