@@ -210,6 +210,21 @@ public class MoviesApiRepository {
         return result;
     }
 
+
+    public static void main(String[] args) {
+
+        try {
+            ResponseMovieDTO moviesList = MoviesApiRepository.getMoviesList( 1);
+            Gson gson = new GsonBuilder().setPrettyPrinting().create();
+            String json = gson.toJson(moviesList);
+            System.out.println(json);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+
+    }
+
 }
 
 

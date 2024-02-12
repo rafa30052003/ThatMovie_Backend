@@ -1,5 +1,8 @@
 package org.thatmovie.service;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonArray;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.thatmovie.model.DTO.MovieDTO;
@@ -97,8 +100,6 @@ public class MoviesApiService {
         }
       return null;
     }
-
-
 
 
 

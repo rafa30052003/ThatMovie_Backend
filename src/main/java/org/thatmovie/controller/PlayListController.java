@@ -83,8 +83,7 @@ public class PlayListController {
             Movie movieToBeStore = new Movie();
             movieToBeStore.setAdult(movie.isAdult());
             movieToBeStore.setBackdrop_path(movie.getBackdrop_path());
-            movieToBeStore.setGenre_ids(movie.getGenre_ids());
-            movieToBeStore.setGenre_names(movie.getGenre_names());
+            //movieToBeStore.setGenres(movie.getGenres());
             //movieToBeStore.setId(movie.getId());
             movieToBeStore.setOriginal_language(movie.getOriginal_language());
             movieToBeStore.setOriginal_title(movie.getOriginal_title());

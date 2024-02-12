@@ -8,8 +8,7 @@ import java.util.List;
 public class MovieDTO {
     private boolean adult;
     private String backdrop_path;
-    private Integer[] genre_ids;
-    private String[] genre_names;
+   private GenreDTO[] genres;
 
     private Integer id;
 
@@ -32,11 +31,10 @@ public class MovieDTO {
     private CreditsDTO credits;
 
 
-    public MovieDTO(boolean adult, String backdrop_path, Integer[] genre_ids, String[] genre_names, Integer id, String original_language, String original_title, String overview, double popularity, String poster_path, String release_date, String title, boolean video, CreditsDTO credits) {
+    public MovieDTO(boolean adult, String backdrop_path, GenreDTO[] genres, Integer id, String original_language, String original_title, String overview, double popularity, String poster_path, String release_date, String title, boolean video, CreditsDTO credits) {
         this.adult = adult;
         this.backdrop_path = backdrop_path;
-        this.genre_ids = genre_ids;
-        this.genre_names = genre_names;
+       this.genres = genres;
         this.id = id;
         this.original_language = original_language;
         this.original_title = original_title;
@@ -69,20 +67,12 @@ public class MovieDTO {
         this.backdrop_path = backdrop_path;
     }
 
-    public Integer[] getGenre_ids() {
-        return genre_ids;
+    public GenreDTO[] getGenres() {
+        return genres;
     }
 
-    public void setGenre_ids(Integer[] genre_ids) {
-        this.genre_ids = genre_ids;
-    }
-
-    public String[] getGenre_names() {
-        return genre_names;
-    }
-
-    public void setGenre_names(String[] genre_names) {
-        this.genre_names = genre_names;
+    public void setGenres(GenreDTO[] genres) {
+        this.genres = genres;
     }
 
     public Integer getId() {
