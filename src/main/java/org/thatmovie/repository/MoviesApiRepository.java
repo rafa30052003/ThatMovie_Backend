@@ -45,9 +45,9 @@ public class MoviesApiRepository {
      */
 
 
-    public MovieDTO getMovieById(int id) throws IOException {
+    public static MovieDTO getMovieById(int id) throws IOException {
 
-        String endpoint = baseUrl + "/movie/" + id;  //ojooooo
+        String endpoint = baseUrl + "/movie/" + id;
         HttpUrl.Builder urlBuilder = HttpUrl.parse(endpoint).newBuilder();
         urlBuilder.addQueryParameter("api_key", apiKey);
         urlBuilder.addQueryParameter("append_to_response", "credits");
@@ -87,6 +87,7 @@ public class MoviesApiRepository {
         urlBuilder.addQueryParameter("api_key", apiKey);
         urlBuilder.addQueryParameter("page", String.valueOf(page));
 
+
         Request request = new Request.Builder()
                 .url(urlBuilder.build())
                 .get()
@@ -118,13 +119,9 @@ public class MoviesApiRepository {
 
     public static ResponseMovieDTO getMoviesListName(String movieName) throws IOException {
         String endpoint = baseUrl + "/search/movie";
-
         HttpUrl.Builder urlBuilder = HttpUrl.parse(endpoint).newBuilder();
         urlBuilder.addQueryParameter("api_key", apiKey);
         urlBuilder.addQueryParameter("query", movieName);
-
-
-
         Request request = new Request.Builder()
                 .url(urlBuilder.build())
                 .get()
@@ -133,11 +130,16 @@ public class MoviesApiRepository {
 
         Response response = client.newCall(request).execute();
         String responseBody = response.body().string();
-        ResponseMovieDTO result = new Gson().fromJson(responseBody, new TypeToken<ResponseMovieDTO>() {}.getType());
+        ResponseMovieDTO responseMovieDTO = new Gson().fromJson(responseBody, new TypeToken<ResponseMovieDTO>() {}.getType());
+        for (MovieDTO movie : responseMovieDTO.getResults()) {
+            MovieDTO detailedMovie = getMovieById(movie.getId());
+            movie.setGenres(detailedMovie.getGenres());
+        }
 
-
-        return result;
+        // Devolver el ResponseMovieDTO actualizado con los detalles de género
+        return responseMovieDTO;
     }
+
 
 
 
