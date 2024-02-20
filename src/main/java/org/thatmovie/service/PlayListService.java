@@ -3,9 +3,11 @@ package org.thatmovie.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.thatmovie.exception.RecordNotFoundException;
+import org.thatmovie.model.Movie;
 import org.thatmovie.model.PlayList;
 import org.thatmovie.repository.PlayListRepository;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -54,6 +56,7 @@ public class PlayListService {
                 PlayList fromDB = result.get();
                 fromDB.setName(playList.getName());
                 fromDB.setLike(playList.getLike());
+
                 end = playListRepo.save(fromDB);
             } else {
                 throw new RecordNotFoundException("No se encontró una lista de reproducción con el id: " + playList.getId());
@@ -78,8 +81,19 @@ public class PlayListService {
         }
     }
 
+    public List<String> getMoviePostersInPlaylist(Integer idPlayList) {
+        List<String> posters = new ArrayList<>();
 
+        PlayList playlist = getPlayListById(idPlayList);
+        List<Movie> moviesInPlaylist = playlist.getMovies();
 
+        for (Movie movie : moviesInPlaylist) {
+            String poster = movie.getPoster_path();
+            posters.add(poster);
+        }
+
+        return posters;
+    }
 
 
 }
