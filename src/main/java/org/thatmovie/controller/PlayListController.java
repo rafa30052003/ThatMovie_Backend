@@ -10,7 +10,7 @@ import org.thatmovie.model.PlayList;
 import org.thatmovie.service.PlayListService;
 
 import java.util.List;
-
+@CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("/playlist")
 public class PlayListController {
@@ -23,6 +23,8 @@ public class PlayListController {
      *
      * @return Lista de listas de reproducción
      */
+
+
     @GetMapping
     public ResponseEntity<List<PlayList>> getAllPlayList(){
         List<PlayList> list = playListService.getAllPlayList();
@@ -84,7 +86,7 @@ public class PlayListController {
             movieToBeStore.setAdult(movie.isAdult());
             movieToBeStore.setBackdrop_path(movie.getBackdrop_path());
             //movieToBeStore.setGenres(movie.getGenres());
-            //movieToBeStore.setId(movie.getId());
+            movieToBeStore.setId(movie.getId());
             movieToBeStore.setOriginal_language(movie.getOriginal_language());
             movieToBeStore.setOriginal_title(movie.getOriginal_title());
             movieToBeStore.setOverview(movie.getOverview());
@@ -102,6 +104,12 @@ public class PlayListController {
         }
     }
 
+    @CrossOrigin(origins = "*")
+    @GetMapping("/{id}/posters")
+    public ResponseEntity<List<String>> getPostersInPlayList(@PathVariable("id") Integer id) {
+        List<String> posters = playListService.getMoviePostersInPlaylist(id);
+        return ResponseEntity.ok(posters);
+    }
 
 
 }

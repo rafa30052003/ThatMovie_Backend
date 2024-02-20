@@ -23,7 +23,7 @@ public class PlayList {
     @JoinColumn(name = "user_id")
     private Member member;
 
-    @ManyToMany(cascade = CascadeType.ALL)
+    @ManyToMany(cascade = CascadeType.MERGE)
     @JoinTable(
             name = "list_movie",
             joinColumns = @JoinColumn(name = "list_id"),

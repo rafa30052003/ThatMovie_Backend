@@ -19,7 +19,6 @@ public class Movie {
     @Column(name = "genre_names")
     private String[] genre_names;
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     @Column(name = "original_language")
     private String original_language;
