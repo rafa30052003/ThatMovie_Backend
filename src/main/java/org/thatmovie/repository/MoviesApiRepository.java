@@ -50,7 +50,7 @@ public class MoviesApiRepository {
         String endpoint = baseUrl + "/movie/" + id;
         HttpUrl.Builder urlBuilder = HttpUrl.parse(endpoint).newBuilder();
         urlBuilder.addQueryParameter("api_key", apiKey);
-        urlBuilder.addQueryParameter("append_to_response", "credits");
+        urlBuilder.addQueryParameter("append_to_response", "credits,videos");
 
 
         Request request = new Request.Builder()
