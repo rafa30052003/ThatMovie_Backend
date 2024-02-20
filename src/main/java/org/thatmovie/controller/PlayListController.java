@@ -94,7 +94,7 @@ public class PlayListController {
             movieToBeStore.setPoster_path(movie.getPoster_path());
             movieToBeStore.setRelease_date(movie.getRelease_date());
             movieToBeStore.setTitle(movie.getTitle());
-            movieToBeStore.setVideo(movie.isVideo());
+            //movieToBeStore.setVideo(movie.isVideo());
             movieToBeStore.addToPlayList(playList);
             playList.addMovie(movieToBeStore);
             playListService.createPlayList(playList);

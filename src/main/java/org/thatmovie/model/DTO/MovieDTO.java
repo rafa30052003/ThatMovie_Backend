@@ -1,10 +1,5 @@
 package org.thatmovie.model.DTO;
 
-import jakarta.persistence.*;
-import org.thatmovie.model.PlayList;
-
-import java.util.List;
-
 public class MovieDTO {
     private boolean adult;
     private String backdrop_path;
@@ -26,15 +21,15 @@ public class MovieDTO {
 
     private String title;
 
-    private boolean video;
+    private VideosDTO videos;
 
     private CreditsDTO credits;
 
 
-    public MovieDTO(boolean adult, String backdrop_path, GenreDTO[] genres, Integer id, String original_language, String original_title, String overview, double popularity, String poster_path, String release_date, String title, boolean video, CreditsDTO credits) {
+    public MovieDTO(boolean adult, String backdrop_path, GenreDTO[] genres, Integer id, String original_language, String original_title, String overview, double popularity, String poster_path, String release_date, String title, VideosDTO video, CreditsDTO credits) {
         this.adult = adult;
         this.backdrop_path = backdrop_path;
-       this.genres = genres;
+        this.genres = genres;
         this.id = id;
         this.original_language = original_language;
         this.original_title = original_title;
@@ -43,8 +38,7 @@ public class MovieDTO {
         this.poster_path = poster_path;
         this.release_date = release_date;
         this.title = title;
-        this.video = video;
-
+        this.videos = video;
         this.credits = credits;
     }
 
@@ -139,15 +133,13 @@ public class MovieDTO {
         this.title = title;
     }
 
-    public boolean isVideo() {
-        return video;
+    public VideosDTO getVideos() {
+        return videos;
     }
 
-    public void setVideo(boolean video) {
-        this.video = video;
+    public void setVideos(VideosDTO videos) {
+        this.videos = videos;
     }
-
-
 
     public CreditsDTO getCredits() {
         return credits;
