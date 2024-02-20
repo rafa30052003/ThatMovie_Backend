@@ -52,6 +52,7 @@ public class MoviesApiRepository {
         urlBuilder.addQueryParameter("api_key", apiKey);
         urlBuilder.addQueryParameter("append_to_response", "credits");
 
+
         Request request = new Request.Builder()
                 .url(urlBuilder.build())
                 .get()
@@ -136,7 +137,6 @@ public class MoviesApiRepository {
             movie.setGenres(detailedMovie.getGenres());
         }
 
-        // Devolver el ResponseMovieDTO actualizado con los detalles de género
         return responseMovieDTO;
     }
 
