@@ -4,13 +4,15 @@ public class CastDTO {
 
     private String name;
     private String profile_path;
-
     private String character;
+    private int gender;
 
-    public CastDTO(String name, String profile_path, String character) {
+
+    public CastDTO(String name, String profile_path, String character, int gender) {
         this.name = name;
         this.profile_path = profile_path;
         this.character = character;
+        this.gender = gender;
     }
 
     public CastDTO() {
@@ -40,5 +42,13 @@ public class CastDTO {
 
     public void setCharacter(String character) {
         this.character = character;
+    }
+
+    public int getGender() {
+        return gender;
+    }
+
+    public void setGender(int gender) {
+        this.gender = gender;
     }
 }

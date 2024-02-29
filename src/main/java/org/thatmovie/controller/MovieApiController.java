@@ -82,4 +82,9 @@ public class MovieApiController {
         return moviesApiService.getNowPlayingMovies();
     }
 
+    @GetMapping("/similar/{id}")
+    public ResponseMovieDTO getSimilarMovies(@PathVariable("id") int id) throws IOException {
+        return moviesApiService.getSimilarMovies(id);
+    }
+
 }

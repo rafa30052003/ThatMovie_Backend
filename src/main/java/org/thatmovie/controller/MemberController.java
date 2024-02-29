@@ -7,7 +7,7 @@ import org.thatmovie.model.Member;
 import org.thatmovie.service.MemberService;
 
 import java.util.List;
-
+@CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("/member")
 public class MemberController {
@@ -32,7 +32,7 @@ public class MemberController {
      * @param id El id del usuario
      * @return El usuario con el id dado
      */
-    @GetMapping("/{id}")
+    @GetMapping("/id/{id}")
     public ResponseEntity<Member> getUserById(@PathVariable("id") int id){
         Member user = memberService.getUserById(id);
         return ResponseEntity.ok(user);
@@ -44,7 +44,7 @@ public class MemberController {
      * @param username El nombre de usuario del usuario
      * @return El usuario con el nombre de usuario dado
      */
-    @GetMapping("/{username}")
+    @GetMapping("/username/{username}")
     public ResponseEntity<Member> getUserByUsername(@PathVariable("username") String username){
         Member user = memberService.getUserByUsername(username);
         return ResponseEntity.ok(user);
