@@ -9,7 +9,7 @@ import org.thatmovie.service.ReviewService;
 
 import java.util.List;
 
-
+@CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("/reviews")
 public class ReviewController {

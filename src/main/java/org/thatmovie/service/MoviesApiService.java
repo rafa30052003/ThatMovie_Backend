@@ -55,6 +55,10 @@ public class MoviesApiService {
         return moviesApiRepository.getMoviesList(page);
     }
 
+    public ResponseMovieDTO getSimilarMovies(int id) throws IOException {
+        return moviesApiRepository.getSimilarMovies(id);
+    }
+
 
 
 

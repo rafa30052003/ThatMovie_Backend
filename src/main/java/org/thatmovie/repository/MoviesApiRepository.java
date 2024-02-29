@@ -105,6 +105,28 @@ public class MoviesApiRepository {
 
 
 
+    public static ResponseMovieDTO getSimilarMovies(int movieId) throws IOException {
+        String endpoint = baseUrl + "/movie/" + movieId + "/similar";
+
+        HttpUrl.Builder urlBuilder = HttpUrl.parse(endpoint).newBuilder();
+        urlBuilder.addQueryParameter("api_key", apiKey);
+        urlBuilder.addQueryParameter("append_to_response", "credits");
+
+        Request request = new Request.Builder()
+                .url(urlBuilder.build())
+                .get()
+                .addHeader("Access-Control-Allow-Origin", "*")
+                .build();
+
+        Response response = client.newCall(request).execute();
+
+        String responseBody = response.body().string();
+        ResponseMovieDTO result = new Gson().fromJson(responseBody, new TypeToken<ResponseMovieDTO>() {}.getType());
+
+        return result;
+    }
+
+
 
 
 
@@ -211,6 +233,9 @@ public class MoviesApiRepository {
 
         return result;
     }
+
+
+
 
 
     public static void main(String[] args) {
