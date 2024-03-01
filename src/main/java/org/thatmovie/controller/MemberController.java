@@ -2,6 +2,10 @@ package org.thatmovie.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 import org.thatmovie.model.Member;
 import org.thatmovie.service.MemberService;
@@ -71,4 +75,9 @@ public class MemberController {
     public void deleteUser(@PathVariable("id") int id){
         memberService.deleteUser(id);
     }
+
+
+
+
+
 }

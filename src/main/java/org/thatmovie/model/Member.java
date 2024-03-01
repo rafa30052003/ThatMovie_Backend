@@ -1,9 +1,15 @@
 package org.thatmovie.model;
 
+import io.swagger.v3.core.converter.AnnotatedType;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
 
 import java.util.List;
-
+@Data
+@Builder
+@AllArgsConstructor
 @Entity
 @Table(name = "member")
 public class Member {
@@ -35,7 +41,14 @@ public class Member {
     @OneToMany(mappedBy = "member")
     private List<PlayList> playlists;
 
+    public Member( String name, String surname, String username, String email, String password) {
 
+        this.name = name;
+        this.surname = surname;
+        this.username = username;
+        this.email = email;
+        this.password = password;
+    }
 
     public Member() {
         this(-1, "name", "surname", "username","email", "password", "avatar", "bio");
@@ -51,6 +64,8 @@ public class Member {
         this.avatar = avatar;
         this.bio = bio;
     }
+
+
 
     public Integer getId() {
         return id;
