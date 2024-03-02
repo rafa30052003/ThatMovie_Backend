@@ -4,7 +4,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -21,25 +20,26 @@ public class AuthService {
     private final PasswordEncoder passwordEncoder;
     private final AuthenticationManager authenticationManager;
 
+
+
     public AuthResponse login(LoginRequest request) {
-        try{
-            authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(request.getEmail(), request.getPassword()));
-        }catch (BadCredentialsException e){
-            throw new BadCredentialsException("Invalid email or password");
+        try {
+            authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(request.getUsername(), request.getPassword()));
+        } catch (BadCredentialsException e) {
+            throw new BadCredentialsException("Invalid username or password");
         }
 
-        Member member= memberRepository.findByEmail(request.getEmail()).orElseThrow(()
-        -> new UsernameNotFoundException("User not found"));
+        Member userDetails = memberRepository.findByUsername(request.getUsername())
+                .orElseThrow(() -> new UsernameNotFoundException("User not found"));
 
-        String token=jwtService.getToken(member);
+        String token = jwtService.getToken(userDetails);
+
         return AuthResponse.builder()
                 .token(token)
-                .username(member.getUsername())
-                .email(member.getEmail())
-                .name(member.getName())
-                .surname(member.getSurname())
+                .email(userDetails.getEmail())
+                .name(userDetails.getName())
+                .surname(userDetails.getSurname())
                 .build();
-
     }
 
     public AuthResponse register(RegisterRequest request) {
