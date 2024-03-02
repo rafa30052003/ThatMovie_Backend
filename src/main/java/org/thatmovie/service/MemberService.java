@@ -1,10 +1,10 @@
     package org.thatmovie.service;
 
     import org.springframework.beans.factory.annotation.Autowired;
+    import org.springframework.context.annotation.Primary;
     import org.springframework.security.core.userdetails.UserDetails;
     import org.springframework.security.core.userdetails.UserDetailsService;
     import org.springframework.security.core.userdetails.UsernameNotFoundException;
-    import org.springframework.security.crypto.password.PasswordEncoder;
     import org.springframework.stereotype.Service;
     import org.thatmovie.exception.RecordNotFoundException;
     import org.thatmovie.model.Member;
@@ -14,6 +14,7 @@
     import java.util.Optional;
 
     @Service
+    @Primary
     public class MemberService implements UserDetailsService {
         @Autowired
         MemberRepository memberRepository;

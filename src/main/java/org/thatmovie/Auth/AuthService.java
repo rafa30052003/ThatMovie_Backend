@@ -2,8 +2,10 @@ package org.thatmovie.Auth;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.thatmovie.Jwt.JwtService;
@@ -20,11 +22,22 @@ public class AuthService {
     private final AuthenticationManager authenticationManager;
 
     public AuthResponse login(LoginRequest request) {
-        authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(request.getEmail(), request.getPassword()));
-        Member member= memberRepository.findByUsername(request.getEmail()).orElseThrow();
+        try{
+            authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(request.getEmail(), request.getPassword()));
+        }catch (BadCredentialsException e){
+            throw new BadCredentialsException("Invalid email or password");
+        }
+
+        Member member= memberRepository.findByEmail(request.getEmail()).orElseThrow(()
+        -> new UsernameNotFoundException("User not found"));
+
         String token=jwtService.getToken(member);
         return AuthResponse.builder()
                 .token(token)
+                .username(member.getUsername())
+                .email(member.getEmail())
+                .name(member.getName())
+                .surname(member.getSurname())
                 .build();
 
     }
