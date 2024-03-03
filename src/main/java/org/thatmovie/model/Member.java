@@ -1,5 +1,6 @@
 package org.thatmovie.model;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import io.swagger.v3.core.converter.AnnotatedType;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -41,7 +42,7 @@ public class Member implements UserDetails {
     @OneToMany(mappedBy = "member")
     private List<Review> reviews;
 
-
+    @JsonManagedReference
     @OneToMany(mappedBy = "member")
     private List<PlayList> playlists;
 
