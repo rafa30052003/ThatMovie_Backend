@@ -1,5 +1,6 @@
 package org.thatmovie.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
@@ -19,6 +20,7 @@ public class PlayList {
     private Boolean like;
     @Column(name = "created_at")
     private LocalDate created_at;
+    @JsonBackReference
     @ManyToOne
     @JoinColumn(name = "user_id")
     private Member member;

@@ -1,14 +1,27 @@
 package org.thatmovie.model;
 
+<<<<<<< HEAD
 
 import jakarta.persistence.*;
 
+=======
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import io.swagger.v3.core.converter.AnnotatedType;
+import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+>>>>>>> aee94ced66ebea275b3b461e3af2c4d36c89409f
 
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 @Entity
 @Table(name = "member")
-public class Member {
+public class Member implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", columnDefinition = "SERIAL")
@@ -33,7 +46,7 @@ public class Member {
     @OneToMany(mappedBy = "member")
     private List<Review> reviews;
 
-
+    @JsonManagedReference
     @OneToMany(mappedBy = "member")
     private List<PlayList> playlists;
 
@@ -91,6 +104,26 @@ public class Member {
         return username;
     }
 
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return true;
+    }
+
     public void setUsername(String username) {
         this.username = username;
     }
@@ -102,6 +135,12 @@ public class Member {
     public void setEmail(String email) {
         this.email = email;
     }
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return Collections.emptyList();
+    }
+
 
     public String getPassword() {
         return password;
