@@ -1,38 +1,47 @@
 package org.thatmovie.Auth;
 
+
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import lombok.RequiredArgsConstructor;
+import org.thatmovie.Auth.Response.LoginResponse;
+import org.thatmovie.model.Member;
+import org.thatmovie.repository.MemberRepository;
+
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/auth")
-@RequiredArgsConstructor
-@CrossOrigin(origins = "http://localhost:4200")
+@CrossOrigin(origins = "*")
 public class AuthController {
 
-    private final AuthService authService; // Servicio de autenticación
+    private MemberRepository memberRepository;
 
-    /**
-     * Maneja la solicitud de inicio de sesión.
-     *
-     * @param request La solicitud de inicio de sesión.
-     * @return        La respuesta de autenticación.
-     */
-    @PostMapping(value = "login")
-    public ResponseEntity<AuthResponse> login(@RequestBody LoginRequest request)
-    {
-        return ResponseEntity.ok(authService.login(request));
+
+    @PostMapping("/login")
+    public ResponseEntity<?> login(@RequestBody LoginResponse loginResponse) {
+        String username = loginResponse.getUsername();
+        String password = loginResponse.getPassword();
+
+        Optional<Member> memberOptional = memberRepository.findByUsername(username);
+        if (memberOptional.isPresent()) {
+            Member member = memberOptional.get();
+            if (password.equals(member.getPassword())) {
+                return ResponseEntity.ok("Login exitoso para el usuario: " + username);
+            }
+        }
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Credenciales incorrectas");
     }
 
-    /**
-     * Maneja la solicitud de registro de usuario.
-     *
-     * @param request La solicitud de registro de usuario.
-     * @return        La respuesta de autenticación.
-     */
-    @PostMapping(value = "register")
-    public ResponseEntity<AuthResponse> register(@RequestBody RegisterRequest request)
-    {
-        return ResponseEntity.ok(authService.register(request));
+    @PostMapping("/signup")
+    public ResponseEntity<?> signup(@RequestBody Member member) {
+        Optional<Member> memberOptional = memberRepository.findByUsername(member.getUsername());
+        if (memberOptional.isPresent()) {
+            return ResponseEntity.status(HttpStatus.CONFLICT).body("El usuario ya existe");
+        }
+        memberRepository.save(member);
+        return ResponseEntity.ok("Usuario creado exitosamente");
     }
+
+
 }

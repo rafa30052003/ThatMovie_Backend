@@ -1,15 +1,11 @@
 package org.thatmovie.model;
 
-import io.swagger.v3.core.converter.AnnotatedType;
+
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
+
 
 import java.util.List;
-@Data
-@Builder
-@AllArgsConstructor
+
 @Entity
 @Table(name = "member")
 public class Member {
