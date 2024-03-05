@@ -1,6 +1,8 @@
 package org.thatmovie.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import org.thatmovie.model.PlayList;
 
@@ -37,14 +39,16 @@ public class Movie {
     @Column(name = "video")
     private boolean video;
 
+
     @OneToMany(mappedBy = "movie")
     private List<Review> reviews;
+
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(
             name = "list_movie",
             joinColumns = @JoinColumn(name = "movie_id"),
             inverseJoinColumns = @JoinColumn(name = "list_id"))
-    @JsonIgnore
+
     private List<PlayList> playList;
 
 

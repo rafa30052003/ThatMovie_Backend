@@ -2,6 +2,9 @@ package org.thatmovie.model;
 
 
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import java.util.List;
@@ -11,7 +14,7 @@ import java.util.List;
 public class Member {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id", columnDefinition = "SERIAL")
+    @Column(name = "id")
     private Integer id;
 
     @Column(name = "name", length = 256, nullable = false)
@@ -30,10 +33,14 @@ public class Member {
     private String bio;
 
 
+
+
     @OneToMany(mappedBy = "member")
     private List<Review> reviews;
 
-    @JsonManagedReference
+
+
+    @JsonIgnore
     @OneToMany(mappedBy = "member")
     private List<PlayList> playlists;
 

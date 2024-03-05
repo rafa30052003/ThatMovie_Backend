@@ -2,6 +2,8 @@ package org.thatmovie.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
@@ -12,7 +14,7 @@ import java.util.List;
 public class PlayList {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id", columnDefinition = "SERIAL")
+    @Column(name = "id")
     private int id;
     @Column(name = "name", length = 256, nullable = false)
     private String name;
@@ -20,16 +22,20 @@ public class PlayList {
     private Boolean like;
     @Column(name = "created_at")
     private LocalDate created_at;
-    @JsonBackReference
-    @ManyToOne
+
+
+
+    @ManyToOne()
     @JoinColumn(name = "user_id")
     private Member member;
+
 
     @ManyToMany(cascade = CascadeType.MERGE)
     @JoinTable(
             name = "list_movie",
             joinColumns = @JoinColumn(name = "list_id"),
             inverseJoinColumns = @JoinColumn(name = "movie_id"))
+
     private List<Movie> movies;
 
 
@@ -129,7 +135,7 @@ public class PlayList {
                 ", name='" + name + '\'' +
                 ", like='" + like + '\'' +
                 ", created_at=" + created_at +
-                ", user_id=" + member +
+                ", user_id=" + member.getId() +
                 '}';
     }
 }

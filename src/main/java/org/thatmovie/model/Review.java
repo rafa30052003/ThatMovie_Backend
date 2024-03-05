@@ -1,5 +1,6 @@
 package org.thatmovie.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
@@ -15,9 +16,11 @@ public class Review {
     private double rating;
     @Column(name = "created_at")
     private LocalDate created_at;
+
     @ManyToOne
     @JoinColumn(name = "user_id")
     private Member member;
+
     @ManyToOne
     @JoinColumn(name = "movie_id")
     private Movie movie;
@@ -89,8 +92,8 @@ public class Review {
                 ", content='" + content + '\'' +
                 ", rating=" + rating +
                 ", date=" + created_at +
-                ", user=" + member +
-                ", movie=" + movie +
+                ", user=" + member.getId() +
+                ", movie=" + movie.getId() +
                 '}';
     }
 }

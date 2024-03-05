@@ -3,10 +3,12 @@ package org.thatmovie.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.thatmovie.exception.RecordNotFoundException;
+import org.thatmovie.model.Member;
 import org.thatmovie.model.Movie;
 import org.thatmovie.model.PlayList;
 import org.thatmovie.repository.PlayListRepository;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -23,8 +25,10 @@ public class PlayListService {
      * @return Lista de listas de reproducción
      */
     public List<PlayList> getAllPlayList() {
-        List<PlayList> playLists = playListRepo.findAll();
-        return playLists;
+        List<PlayList> playLists2 = playListRepo.findAll();
+
+        return playLists2;
+
     }
 
     /**
