@@ -91,4 +91,8 @@ public class ReviewService {
             throw new RecordNotFoundException("No review found with ID: " + id);
         }
     }
+
+    public List<Review> getReviewsForCurrentMember(int id){
+        return reviewRepo.getReviewsByMemberId(id);
+    }
 }

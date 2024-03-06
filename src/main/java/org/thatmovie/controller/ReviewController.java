@@ -60,4 +60,10 @@ public class ReviewController {
     public void deleteReview(@PathVariable("id") int id){
         reviewService.deleteReview(id);
     }
+
+    @GetMapping("/member/{id}")
+    public ResponseEntity<List<Review>> getReviewsForUser(@PathVariable ("id") int id) {
+        List<Review> reviews = reviewService.getReviewsForCurrentMember(id);
+        return ResponseEntity.ok(reviews);
+    }
 }

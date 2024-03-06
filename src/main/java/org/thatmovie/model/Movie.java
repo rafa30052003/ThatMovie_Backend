@@ -2,6 +2,7 @@ package org.thatmovie.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import org.thatmovie.model.PlayList;
@@ -41,6 +42,7 @@ public class Movie {
 
 
     @OneToMany(mappedBy = "movie")
+    @JsonIgnore
     private List<Review> reviews;
 
     @ManyToMany(cascade = CascadeType.ALL)
@@ -48,7 +50,7 @@ public class Movie {
             name = "list_movie",
             joinColumns = @JoinColumn(name = "movie_id"),
             inverseJoinColumns = @JoinColumn(name = "list_id"))
-
+    @JsonIgnore
     private List<PlayList> playList;
 
 
@@ -208,5 +210,20 @@ public class Movie {
 
     public void setPlayList(List<PlayList> playList) {
         this.playList = playList;
+    }
+
+    @Override
+    public String toString() {
+        return "Movie{" +
+                "id=" + id +
+                ", original_language='" + original_language + '\'' +
+                ", original_title='" + original_title + '\'' +
+                ", overview='" + overview + '\'' +
+                ", popularity=" + popularity +
+                ", poster_path='" + poster_path + '\'' +
+                ", release_date='" + release_date + '\'' +
+                ", title='" + title + '\'' +
+                ", video=" + video +
+                '}';
     }
 }
