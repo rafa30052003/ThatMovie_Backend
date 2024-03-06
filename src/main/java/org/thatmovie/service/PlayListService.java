@@ -54,7 +54,7 @@ public class PlayListService {
      */
     public PlayList createPlayList(PlayList playList) {
         PlayList end;
-        if (playList.getId() > 0) {// Actualizar
+        if (playList.getId() > 0) {
             Optional<PlayList> result = playListRepo.findById(playList.getId());
             if (result.isPresent()) {
                 PlayList fromDB = result.get();
@@ -66,7 +66,7 @@ public class PlayListService {
             } else {
                 throw new RecordNotFoundException("No se encontró una lista de reproducción con el id: " + playList.getId());
             }
-        } else {// Insertar
+        } else {
             end = playListRepo.save(playList);
         }
         return end;
