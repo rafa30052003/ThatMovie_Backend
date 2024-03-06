@@ -40,7 +40,7 @@ public class Member {
 
 
 
-    @JsonIgnore
+
     @OneToMany(mappedBy = "member")
     private List<PlayList> playlists;
 
